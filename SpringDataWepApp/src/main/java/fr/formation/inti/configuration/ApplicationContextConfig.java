@@ -24,6 +24,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -34,7 +35,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 // Load to Environment.
 @PropertySource("classpath:datasource-cfg.properties")
 @EnableJpaRepositories(basePackages = ("fr.formation.inti.dao"))
-public class ApplicationContextConfig {
+public class ApplicationContextConfig implements WebMvcConfigurer{
 
 	@Autowired
 	private Environment env;
@@ -42,7 +43,7 @@ public class ApplicationContextConfig {
 	@Bean(name = "messageSource") // permet de charger les msg qu'on mettra dans un fichier properties
 	public MessageSource getMessageResource() {
 		ReloadableResourceBundleMessageSource messageResource = new ReloadableResourceBundleMessageSource();
-		messageResource.setBasename("/i18m/message");
+		messageResource.setBasename("classpath:i18m/message");
 		messageResource.setDefaultEncoding("UTF-8");
 		return messageResource;
 	}
@@ -100,19 +101,5 @@ public class ApplicationContextConfig {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
-	@Bean
-	public LocaleResolver localeResolver() {
-		CookieLocaleResolver resolver = new CookieLocaleResolver();
-		resolver.setDefaultLocale(new Locale("fr"));
-		resolver.setCookieName("myLocaleCookie");
-		resolver.setCookieMaxAge(4800);
-		return resolver;
-	}
-
-	public void addInterceptors(InterceptorRegistry registry) {
-		LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
-		interceptor.setParamName("mylocale");
-		registry.addInterceptor(interceptor);
-	}
 
 }

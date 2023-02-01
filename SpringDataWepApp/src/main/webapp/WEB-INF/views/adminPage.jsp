@@ -3,6 +3,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <!DOCTYPE html>
 <html>
@@ -13,11 +14,12 @@
 <body>
 	<jsp:include page="_menu.jsp" />
 
-	<h2>Admin Page</h2>
+	<h2><s:message code="adminpage"></s:message></h2>
 
 
-	<h3>Welcome : ${pageContext.request.userPrincipal.name}</h3>
+	<h3><s:message code="welcome"></s:message> : ${pageContext.request.userPrincipal.name}</h3>
 
-	<b>This is protected page!</b>
+	<b><s:message code="protected"></s:message></b>
+	
 </body>
 </html>

@@ -1,13 +1,11 @@
 package fr.formation.inti.controller;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +24,8 @@ import fr.formation.inti.model.Employee;
 @Controller
 public class MainController {
 
+	private static final Logger logger = Logger.getLogger(MainController.class);
+	
 	@Autowired
 	private EmployeeServiceImpl serviceEmployee;
 
@@ -48,18 +48,21 @@ public class MainController {
 
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
 	public String welcomePage(Model model) {
-		model.addAttribute("title", "Welcome");
-		model.addAttribute("message", "This is welcome page!");
+		logger.info("Welcome");
+//		model.addAttribute("title", "Welcome");
+//		model.addAttribute("message", "This is welcome page!");
 		return "welcomePage";
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminPage(Model model) {
+		logger.info("Admin");
 		return "adminPage";
 	}
 
 	@RequestMapping(value = "/employee", method = RequestMethod.GET)
 	public String employee(Model model) {
+		logger.info("Employee");
 		List<Employee> list = (List<Employee>) serviceEmployee.findAll();
 		model.addAttribute("list", list);
 		System.out.println(list);
@@ -68,6 +71,7 @@ public class MainController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String deleteEmployee(Model model, @RequestParam Integer id) {
+		logger.info("Delete");
 		serviceEmployee.deleteById(id);
 		List<Employee> list = (List<Employee>) serviceEmployee.findAll();
 		model.addAttribute("list", list);
@@ -76,6 +80,7 @@ public class MainController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String editEmployeeGet(Model model, @RequestParam Integer id) {
+		logger.info("UpdateGet");
 		Employee emp = serviceEmployee.findById(id).get();
 
 		System.out.println(emp);
@@ -87,6 +92,7 @@ public class MainController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String editEmployeePost(@ModelAttribute("emp") @Validated Employee employee, BindingResult br, Model model,
 			@RequestParam Integer id) {
+		logger.info("UpdatePost");
 		if (br.hasErrors()) {
 			return "update";
 		} else {
@@ -111,12 +117,14 @@ public class MainController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addEmployeeGet() {
+		logger.info("addGet");
 		return "add";
 
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addEmployeePost(@ModelAttribute("add") @Validated Employee employee, BindingResult br, Model model) {
+		logger.info("addPost");
 		if (br.hasErrors()) {
 			return "add";
 		} else {
@@ -135,6 +143,7 @@ public class MainController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(Model model) {
+		logger.info("login");
 		return "loginPage";
 	}
 
@@ -168,3 +177,4 @@ public class MainController {
 		return "403Page";
 	}
 }
+

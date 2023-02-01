@@ -3,6 +3,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
+ <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <!DOCTYPE html>
 <html>
@@ -14,15 +15,17 @@
 	<jsp:include page="_menu.jsp" />
 
 	<br>
+		
+		<div class="container">
 
-	<div class="container">
 		<div class="card-header mx-4 mx-md-5">
 			<div class="row d-flex justify-content-center">
-				<div style="background-color: LightGray; padding-bottom: 10px">
+				<div style="background-color:LightGray; padding-bottom: 10px">
 
-					<h2>List of employees</h2>
-					<br> <a class="btn btn-primary" href="add">Add
-						employee</a> <br>
+					<h2><s:message code="listemployee"></s:message></h2>
+					<br>
+					<a class="btn btn-primary" href="add"><s:message code="titleaddemployee"></s:message></a>
+					<br>
 
 				</div>
 			</div>
@@ -58,12 +61,12 @@
 										<td>${emp.startDate }</td>
 										<td>${emp.title }</td>
 										<td><a class="btn btn-primary"
-											href="update?id=${emp.empId}">Update</a> <a
+											href="update?id=${emp.empId}"><s:message code="update"></s:message></a> <a
 											href="delete?id=${emp.empId}"
 											onclick="return confirm('Are you sure you want to delete this item?');">
-												<button class="btn btn-primary" type="submit" name="id"
+												<button style="background-color:red; border-color:red" class="btn btn-primary" type="submit" name="id"
 													value="${emp.empId}">
-													Delete <i class="bi bi-x-square-fill"></i>
+													<s:message code="delete"></s:message> <i class="bi bi-x-square-fill"></i>
 												</button>
 										</a></td>
 									</tr>

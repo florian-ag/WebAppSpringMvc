@@ -3,6 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+	<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+	
 
 <!DOCTYPE html>
 <html>
@@ -30,7 +32,6 @@
 
 
 <style>
-
 ul {
 	list-style-type: none;
 	margin: 0;
@@ -56,7 +57,7 @@ li a:hover:not(.active) {
 }
 
 .active {
-	background-color: #04AA6D;
+	background-color: yellow;
 }
 </style>
 
@@ -64,18 +65,25 @@ li a:hover:not(.active) {
 <body>
 
 	<ul>
-		<li><a href="${pageContext.request.contextPath}/welcome">Home</a></li>
-		<li><a href="${pageContext.request.contextPath}/userInfo">UserInfo</a></li>
-		<li><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
+		<li><a href="${pageContext.request.contextPath}/welcome"><s:message code="home"></s:message></a></li>
+		<li><a href="${pageContext.request.contextPath}/userInfo"><s:message code="userinfo"></s:message></a></li>
+		<li><a href="${pageContext.request.contextPath}/admin"><s:message code="admin"></s:message></a></li>
 		<li><sec:authorize access="hasRole('ADMIN')">
-				<a href="${pageContext.request.contextPath}/employee">Employee</a>
+				<a href="${pageContext.request.contextPath}/employee"><s:message code="employee"></s:message></a>
 			</sec:authorize></li>
 
 		<li style="float: right"><c:if
 				test="${pageContext.request.userPrincipal.name != null}">
-				<a class="active" href="${pageContext.request.contextPath}/logout">Logout</a>
+				<a class="active" href="${pageContext.request.contextPath}/logout"><s:message code="logout"></s:message></a>
 
 			</c:if></li>
+		<li style="float: right"><a href="?mylocale=en">English  <img
+			src="${pageContext.request.contextPath}/resources/img/anglais.png"
+			width="18px" height="12px" /></a></li>
+		<li style="float: right"><a href="?mylocale=fr">Français <img
+			src="${pageContext.request.contextPath}/resources/img/france.png"
+			width="18px" height="12px" /></a></li>
+
 	</ul>
 
 	<%-- <a href="${pageContext.request.contextPath}/welcome">Home</a> | &nbsp;
