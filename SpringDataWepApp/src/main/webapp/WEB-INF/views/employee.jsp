@@ -43,11 +43,11 @@
 
 							<thead>
 								<tr>
-									<th>EmpId</th>
-									<th>FirstName</th>
-									<th>LastName</th>
-									<th>StartDate</th>
-									<th>Title</th>
+									<th>Id</th>
+									<th><s:message code="firstName"></s:message></th>
+									<th><s:message code="lastName"></s:message></th>
+									<th><s:message code="startDate"></s:message></th>
+									<th><s:message code="title"></s:message></th>
 									<th>Action</th>
 
 								</tr>
@@ -55,7 +55,7 @@
 							<tbody>
 								<c:forEach items="${list}" var="emp">
 									<tr>
-										<td>${emp.empId }</td>
+										<td>${emp.empId}</td>
 										<td>${emp.firstName }</td>
 										<td>${emp.lastName }</td>
 										<td>${emp.startDate }</td>

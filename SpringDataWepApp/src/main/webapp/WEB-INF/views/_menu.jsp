@@ -54,10 +54,16 @@ li a {
 
 li a:hover:not(.active) {
 	background-color: #111;
+	text-decoration: none;
+	color: white;
 }
 
 .active {
-	background-color: yellow;
+	background-color: orange;
+}
+
+select[multiple]:focus option:checked {
+    background: red linear-gradient(0deg, red 0%, red 100%);
 }
 </style>
 
